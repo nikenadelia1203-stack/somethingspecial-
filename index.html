@@ -5,13 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Seng 🕷️❤️</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: radial-gradient(circle at center, #1b020a 0%, #05020a 100%);
+      background: #0a040d;
       color: #fecdd3;
       font-family: 'Georgia', serif;
       min-height: 100vh;
@@ -19,386 +15,217 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 1.5rem 1rem;
-      position: relative;
-      overflow-x: hidden;
+      padding: 20px 10px;
     }
-
-    /* Pattern jaring spiderman transparan */
-    body::before {
-      content: "";
+    .screen {
       position: fixed;
       inset: 0;
-      background-image: radial-gradient(rgba(225, 29, 72, 0.12) 1px, transparent 0);
-      background-size: 24px 24px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 420px;
-      z-index: 10;
-      position: relative;
-    }
-
-    /* Card Styling Glassmorphism */
-    .card {
-      background: rgba(26, 8, 22, 0.75);
-      border: 1px solid rgba(225, 29, 72, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(225, 29, 72, 0.1);
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-
-    /* Utility Display */
-    .hidden { display: none !important; }
-    .flex-center { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-
-    /* Buttons */
-    .btn {
-      background: linear-gradient(135deg, #881337 0%, #4c0519 100%);
-      border: 1px solid #f43f5e;
-      color: #ffe4e6;
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      font-family: inherit;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(225, 29, 72, 0.2);
-    }
-    .btn:active { transform: scale(0.95); }
-
-    /* Keypad PIN */
-    .keypad-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      width: 100%;
-      max-width: 260px;
-      margin: 0 auto;
-    }
-    .key-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: rgba(76, 5, 25, 0.4);
-      border: 1px solid rgba(244, 63, 94, 0.4);
-      color: #fecdd3;
-      font-size: 1.25rem;
+      background: #0a040d;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 0 auto;
-      cursor: pointer;
-      user-select: none;
+      z-index: 50;
     }
-    .key-btn:active {
-      background: #e11d48;
-      color: #fff;
-      box-shadow: 0 0 12px #e11d48;
-    }
-
-    /* Dots PIN */
-    .pin-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 1px solid #f43f5e;
-      transition: all 0.2s ease;
-    }
-    .pin-dot.active {
-      background-color: #e11d48;
-      box-shadow: 0 0 10px #e11d48;
-    }
-
-    /* Photo Frame */
-    .photo-card {
-      background: #ffffff;
-      padding: 10px 10px 18px 10px;
-      border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-      margin-bottom: 1rem;
-      transform: rotate(-1deg);
-    }
-    .photo-card:nth-child(even) {
-      transform: rotate(1.5deg);
-    }
-    .photo-img {
-      width: 100%;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      border-radius: 6px;
-      margin-bottom: 8px;
-    }
-    .photo-caption {
-      color: #334155;
-      font-size: 0.75rem;
-      font-style: italic;
-    }
-
+    .hidden { display: none !important; }
+    
     /* Progress bar */
-    .progress-bg {
-      width: 180px;
-      height: 6px;
-      background: rgba(76, 5, 25, 0.6);
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(244, 63, 94, 0.3);
-      margin-top: 15px;
+    .bar-bg { width: 180px; height: 6px; background: #2a0815; border-radius: 10px; border: 1px solid #f43f5e; overflow: hidden; margin-top: 15px; }
+    .bar-fill { height: 100%; width: 0%; background: #e11d48; transition: width 0.1s; }
+
+    /* Keypad PIN */
+    .pin-dots { display: flex; gap: 10px; margin-bottom: 25px; }
+    .dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid #f43f5e; }
+    .dot.active { background: #e11d48; box-shadow: 0 0 10px #e11d48; }
+
+    .grid-key { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 240px; }
+    .btn-key {
+      width: 60px; height: 60px; border-radius: 50%; background: #2a0815; border: 1px solid #f43f5e;
+      color: #ffe4e6; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto; cursor: pointer;
     }
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: #e11d48;
-      box-shadow: 0 0 8px #e11d48;
-      transition: width 0.15s ease;
+    .btn-key:active { background: #e11d48; }
+
+    /* Card Layout */
+    .card {
+      width: 100%; max-width: 400px; background: #16081a; border: 1px solid #e11d48;
+      border-radius: 16px; padding: 20px; margin-bottom: 20px; text-align: center;
     }
+    .btn-main {
+      background: #9f1239; border: 1px solid #f43f5e; color: #fff; padding: 10px 20px;
+      border-radius: 20px; cursor: pointer; font-family: inherit; font-size: 0.85rem;
+    }
+
+    .photo-frame { background: #fff; padding: 8px 8px 16px 8px; border-radius: 8px; margin-bottom: 15px; color: #333; font-size: 0.75rem; }
+    .photo-frame img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 4px; margin-bottom: 6px; }
   </style>
 </head>
 <body>
 
-  <!-- TAHAP 1: LOADING SCREEN -->
-  <div id="loadingScreen" class="fixed-screen flex-center" style="position:fixed; inset:0; z-index:50; background:#0a040d;">
-    <div style="font-size: 3rem; margin-bottom: 10px; animation: bounce 1s infinite alternate;">🕸️</div>
-    <p style="font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #f43f5e;">Loading Something Special...</p>
-    <div class="progress-bg">
-      <div id="progressBar" class="progress-fill"></div>
+  <!-- TAHAP 1: LOADING -->
+  <div id="loading" class="screen">
+    <div style="font-size:3rem; margin-bottom:10px;">🕸️</div>
+    <p style="font-size:0.8rem; color:#f43f5e; letter-spacing:2px;">LOADING SOMETHING SPECIAL...</p>
+    <div class="bar-bg"><div id="fill" class="bar-fill"></div></div>
+  </div>
+
+  <!-- TAHAP 2: KADO -->
+  <div id="gift" class="screen hidden">
+    <p style="font-size:0.9rem; color:#fecdd3; margin-bottom:20px;">Touch the gift to open 🎁</p>
+    <div onclick="showPin()" style="font-size:6rem; cursor:pointer;">🎁</div>
+  </div>
+
+  <!-- TAHAP 3: PIN LOCK -->
+  <div id="pin" class="screen hidden">
+    <div style="font-size:2rem;">🕸️🌸</div>
+    <h2 style="font-size:1.3rem; margin-bottom:5px;">For You, My Love</h2>
+    <p style="font-size:0.75rem; color:#f43f5e; margin-bottom:20px;">Enter our secret code</p>
+
+    <div class="pin-dots">
+      <div id="d1" class="dot"></div>
+      <div id="d2" class="dot"></div>
+      <div id="d3" class="dot"></div>
+      <div id="d4" class="dot"></div>
+      <div id="d5" class="dot"></div>
+      <div id="d6" class="dot"></div>
+    </div>
+
+    <div class="grid-key">
+      <button class="btn-key" onclick="press('1')">1</button>
+      <button class="btn-key" onclick="press('2')">2</button>
+      <button class="btn-key" onclick="press('3')">3</button>
+      <button class="btn-key" onclick="press('4')">4</button>
+      <button class="btn-key" onclick="press('5')">5</button>
+      <button class="btn-key" onclick="press('6')">6</button>
+      <button class="btn-key" onclick="press('7')">7</button>
+      <button class="btn-key" onclick="press('8')">8</button>
+      <button class="btn-key" onclick="press('9')">9</button>
+      <button class="btn-key" style="background:transparent; border:none; font-size:0.8rem;" onclick="resetPin()">✕</button>
+      <button class="btn-key" onclick="press('0')">0</button>
+      <button class="btn-key" style="background:transparent; border:none; font-size:0.9rem;" onclick="delPin()">⌫</button>
     </div>
   </div>
 
-  <!-- TAHAP 2: KOTAK KADO 🎁 -->
-  <div id="giftScreen" class="hidden fixed-screen flex-center" style="position:fixed; inset:0; z-index:40; background:#0a040d; text-align:center;">
-    <p style="font-size: 0.85rem; color: #fda4af; margin-bottom: 20px;">Touch the gift to reveal our secret 🎁</p>
-    <div onclick="goToPin()" style="font-size: 6rem; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-      🎁
-    </div>
-  </div>
-
-  <!-- TAHAP 3: LAYAR PIN 🔑 -->
-  <div id="pinScreen" class="hidden fixed-screen flex-center" style="position:fixed; inset:0; z-index:30; background:#0a040d;">
-    <div style="font-size: 2rem; margin-bottom: 5px;">🕸️🌸</div>
-    <h1 style="font-size: 1.4rem; color: #fecdd3; font-weight: normal; margin-bottom: 4px;">For You, My Love</h1>
-    <p style="font-size: 0.7rem; color: #fda4af; opacity: 0.8; margin-bottom: 25px;">Enter our secret code</p>
-
-    <!-- Dots PIN -->
-    <div style="display: flex; gap: 12px; margin-bottom: 30px;">
-      <div id="dot1" class="pin-dot"></div>
-      <div id="dot2" class="pin-dot"></div>
-      <div id="dot3" class="pin-dot"></div>
-      <div id="dot4" class="pin-dot"></div>
-      <div id="dot5" class="pin-dot"></div>
-      <div id="dot6" class="pin-dot"></div>
+  <!-- TAHAP 4: KONTEN UTAMA -->
+  <div id="content" class="hidden" style="width:100%; max-width:400px;">
+    <div style="text-align:center; margin-bottom:20px;">
+      <span style="font-size:0.65rem; color:#f43f5e; letter-spacing:2px;">🌸 YOUR SPECIAL DAY 🌸</span>
+      <h1 style="font-size:1.8rem; color:#fecdd3; margin-top:5px;">Happy Birthday seng</h1>
     </div>
 
-    <!-- Keypad -->
-    <div class="keypad-grid">
-      <button class="key-btn" onclick="pressKey('1')">1</button>
-      <button class="key-btn" onclick="pressKey('2')">2</button>
-      <button class="key-btn" onclick="pressKey('3')">3</button>
-      <button class="key-btn" onclick="pressKey('4')">4</button>
-      <button class="key-btn" onclick="pressKey('5')">5</button>
-      <button class="key-btn" onclick="pressKey('6')">6</button>
-      <button class="key-btn" onclick="pressKey('7')">7</button>
-      <button class="key-btn" onclick="pressKey('8')">8</button>
-      <button class="key-btn" onclick="pressKey('9')">9</button>
-      <button class="key-btn" style="background:transparent; border:none; font-size: 0.8rem; color:#f43f5e;" onclick="clearPin()">✕</button>
-      <button class="key-btn" onclick="pressKey('0')">0</button>
-      <button class="key-btn" style="background:transparent; border:none; font-size: 1rem; color:#fda4af;" onclick="backspace()">⌫</button>
-    </div>
-  </div>
-
-  <!-- TAHAP 4: KONTEN UTAMA WEBSITE -->
-  <div id="mainContent" class="container hidden" style="padding-top: 10px; padding-bottom: 40px;">
-    
-    <div style="text-align:center; margin-bottom: 25px;">
-      <span style="font-size: 0.65rem; color: #f43f5e; letter-spacing: 3px; text-transform: uppercase;">🌸 Your Special Day 🌸</span>
-      <h1 style="font-size: 1.8rem; color: #ffe4e6; margin-top: 5px;">Happy Birthday seng</h1>
-    </div>
-
-    <!-- Section 1: Buket Bunga -->
+    <!-- Buket -->
     <div class="card">
-      <span style="font-size: 0.6rem; color: #f43f5e; letter-spacing: 2px;">— MY FIRST GIFT —</span>
-      <h2 style="font-size: 1.1rem; color: #fecdd3; margin: 4px 0 12px 0;">A Digital Bouquet</h2>
-      <p style="font-size: 0.75rem; color: #fda4af; margin-bottom: 15px;">Touch each flower to reveal its message 💕</p>
-      
-      <div style="display: flex; justify-content: center; gap: 20px; font-size: 2.2rem; margin-bottom: 12px;">
-        <span style="cursor:pointer;" onclick="showMsg('You are the finest rose that ever bloomed — full of love and unmatched beauty.')">🌹</span>
-        <span style="cursor:pointer;" onclick="showMsg('Like a sunflower, you always turn toward the light and share your warmth.')">🌻</span>
-        <span style="cursor:pointer;" onclick="showMsg('You are as beautiful as cherry blossoms — lovely and bringing joy wherever you go.')">🌸</span>
+      <span style="font-size:0.6rem; color:#f43f5e;">— MY FIRST GIFT —</span>
+      <h3 style="margin:5px 0 10px 0;">A Digital Bouquet</h3>
+      <div style="font-size:2rem; display:flex; justify-center; gap:20px; justify-content:center; margin-bottom:10px;">
+        <span onclick="alert('You are the finest rose that ever bloomed — full of love and unmatched beauty.')" style="cursor:pointer;">🌹</span>
+        <span onclick="alert('Like a sunflower, you always turn toward the light and share your warmth.')" style="cursor:pointer;">🌻</span>
+        <span onclick="alert('You are as beautiful as cherry blossoms — lovely and bringing joy wherever you go.')" style="cursor:pointer;">🌸</span>
       </div>
-      <div id="flowerMsg" class="hidden" style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 10px; border: 1px solid rgba(244,63,94,0.3); font-size: 0.75rem; color: #ffe4e6; margin-top: 10px;"></div>
+      <p style="font-size:0.7rem; color:#fda4af;">Click flower to read message</p>
     </div>
 
-    <!-- Section 2: Surat Ucapan -->
-    <div class="card" style="text-align: left;">
-      <div style="text-align: center;">
-        <span style="font-size: 0.6rem; color: #f43f5e; letter-spacing: 2px;">— FROM MY HEART —</span>
-        <h2 style="font-size: 1.1rem; color: #fecdd3; margin-top: 4px; margin-bottom: 15px;">A Letter For You 💌</h2>
-      </div>
-      <div style="font-size: 0.78rem; line-height: 1.6; color: #ffe4e6; font-family: sans-serif;">
-        <p style="font-weight: bold; font-family: serif; font-size: 0.9rem; color: #fecdd3; margin-bottom: 8px;">HAPPY BIRTHDAY SAYANG</p>
-        <p style="margin-bottom: 8px;">happy 22nd birthday, seng. 🤍</p>
-        <p style="margin-bottom: 8px;">semoga di umur yang baru ini kamu selalu dikasih kesehatan, banyak hal baik, dan alasan-alasan kecil buat senyum setiap hari. semoga semua yang lagi kamu usahain pelan-pelan menemukan jalannya, even the things you haven't told anyone about yet.</p>
-        <p style="margin-bottom: 8px;">i hope this year brings you more good days, more random laughs, more places to go, and more moments that make you think, “okay, life is actually pretty nice.”</p>
-        <p style="margin-bottom: 8px;">jaga diri baik-baik, makan yang bener, jangan terlalu keras sama diri sendiri, and please remember that you deserve good things too.</p>
-        <p style="margin-bottom: 12px;">anyway, enough of the serious birthday speech. enjoy your day, seng. this tiny corner of the internet is just here to remind you that today is yours. ❤️</p>
-        <div style="text-align: right; font-family: serif; font-size: 0.8rem; margin-top: 10px;">
-          with love,<br>
-          <span style="font-weight: bold; color: #f43f5e;">-lia 🕸️</span>
-        </div>
+    <!-- Surat -->
+    <div class="card" style="text-align:left;">
+      <h3 style="text-align:center; margin-bottom:10px;">A Letter For You 💌</h3>
+      <div style="font-size:0.75rem; line-height:1.5; font-family:sans-serif;">
+        <p style="font-weight:bold; margin-bottom:6px;">HAPPY BIRTHDAY SAYANG</p>
+        <p style="margin-bottom:6px;">happy 22nd birthday, seng. 🤍</p>
+        <p style="margin-bottom:6px;">semoga di umur yang baru ini kamu selalu dikasih kesehatan, banyak hal baik, dan alasan-alasan kecil buat senyum setiap hari. semoga semua yang lagi kamu usahain pelan-pelan menemukan jalannya, even the things you haven't told anyone about yet.</p>
+        <p style="margin-bottom:6px;">i hope this year brings you more good days, more random laughs, more places to go, and more moments that make you think, “okay, life is actually pretty nice.”</p>
+        <p style="margin-bottom:6px;">jaga diri baik-baik, makan yang bener, jangan terlalu keras sama diri sendiri, and please remember that you deserve good things too.</p>
+        <p style="margin-bottom:10px;">anyway, enough of the serious birthday speech. enjoy your day, seng. this tiny corner of the internet is just here to remind you that today is yours. ❤️</p>
+        <div style="text-align:right; font-weight:bold; color:#f43f5e;">-lia 🕸️</div>
       </div>
     </div>
 
-    <!-- Section 3: Galeri Foto -->
-    <div style="text-align: center; margin-bottom: 1.5rem;">
-      <span style="font-size: 0.6rem; color: #f43f5e; letter-spacing: 2px;">— MEMORIES —</span>
-      <h2 style="font-size: 1.1rem; color: #fecdd3; margin-top: 4px; margin-bottom: 15px;">Our Photo Memories</h2>
-
-      <div class="photo-card">
-        <img src="1.jpeg" class="photo-img" alt="Foto 1">
-        <p class="photo-caption">Our very first sunset together</p>
-      </div>
-      <div class="photo-card">
-        <img src="2.jpeg" class="photo-img" alt="Foto 2">
-        <p class="photo-caption">Our favourite café in the corner of the city</p>
-      </div>
-      <div class="photo-card">
-        <img src="3.jpeg" class="photo-img" alt="Foto 3">
-        <p class="photo-caption">First time at the beach, just the two of us</p>
-      </div>
-    </div>
-
-    <!-- Section 4: Playlist Lagu -->
+    <!-- Foto -->
     <div class="card">
-      <span style="font-size: 0.6rem; color: #f43f5e; letter-spacing: 2px;">— OUR SONGS —</span>
-      <h2 style="font-size: 1.1rem; color: #fecdd3; margin-top: 4px; margin-bottom: 15px;">Special Playlist</h2>
-      <audio id="audioPlayer" src="music1.mp3"></audio>
-      
-      <div style="display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 0.75rem;">
-        <div onclick="playMusic('music1.mp3')" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(244,63,94,0.2);">
-          <div><p style="font-weight: bold; color:#ffe4e6;">An Art Gallery Could Never Be As Unique As You</p><p style="font-size: 0.65rem; color: #f43f5e;">mrld</p></div>
-          <span>▶</span>
-        </div>
-        <div onclick="playMusic('music2.mp3')" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(244,63,94,0.2);">
-          <div><p style="font-weight: bold; color:#ffe4e6;">Shape Of My Heart</p><p style="font-size: 0.65rem; color: #f43f5e;">Backstreet Boys</p></div>
-          <span>▶</span>
-        </div>
-        <div onclick="playMusic('music3.mp3')" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(244,63,94,0.2);">
-          <div><p style="font-weight: bold; color:#ffe4e6;">Lover</p><p style="font-size: 0.65rem; color: #f43f5e;">Taylor Swift</p></div>
-          <span>▶</span>
-        </div>
+      <h3 style="margin-bottom:15px;">Our Photo Memories</h3>
+      <div class="photo-frame"><img src="1.jpeg"><p>Our very first sunset together</p></div>
+      <div class="photo-frame"><img src="2.jpeg"><p>Our favourite café in the corner of the city</p></div>
+      <div class="photo-frame"><img src="3.jpeg"><p>First time at the beach, just the two of us</p></div>
+    </div>
+
+    <!-- Playlist -->
+    <div class="card">
+      <h3 style="margin-bottom:10px;">Special Playlist</h3>
+      <audio id="player"></audio>
+      <div style="display:flex; flex-direction:column; gap:8px; text-align:left; font-size:0.75rem;">
+        <button class="btn-main" onclick="playSong('music1.mp3')">▶ An Art Gallery Could Never Be As Unique As You</button>
+        <button class="btn-main" onclick="playSong('music2.mp3')">▶ Shape Of My Heart</button>
+        <button class="btn-main" onclick="playSong('music3.mp3')">▶ Lover</button>
       </div>
     </div>
 
-    <!-- Section 5: Jar / Toples -->
+    <!-- Jar -->
     <div class="card">
-      <span style="font-size: 0.6rem; color: #f43f5e; letter-spacing: 2px;">— GRATITUDE —</span>
-      <h2 style="font-size: 1.1rem; color: #fecdd3; margin: 4px 0;">Reasons I'm Grateful</h2>
-      <button class="btn" style="margin: 12px 0;" onclick="shakeJar()">🫙 Shake the Jar</button>
-      <div id="jarNote" class="hidden" style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 10px; border: 1px solid rgba(244,63,94,0.3); font-size: 0.75rem; color: #ffe4e6;"></div>
+      <h3 style="margin-bottom:10px;">Reasons I'm Grateful</h3>
+      <button class="btn-main" onclick="shakeJar()">🫙 Shake the Jar</button>
+      <p id="jarText" style="margin-top:10px; font-size:0.75rem; color:#fecdd3;"></p>
     </div>
 
-    <!-- Tombol Wish Akhir -->
-    <button class="btn" style="width: 100%; padding: 0.9rem; font-size: 0.85rem; font-weight: bold;" onclick="togglePopup(true)">Click for Final Birthday Wishes ✨</button>
-
-  </div>
-
-  <!-- POPUP WISHES -->
-  <div id="popup" class="hidden flex-center" style="position:fixed; inset:0; z-index:60; background: rgba(0,0,0,0.85); padding: 20px;">
-    <div class="card" style="max-width: 300px; width: 100%; border-color: #f43f5e; margin: 0;">
-      <div style="font-size: 2.5rem; margin-bottom: 5px;">🎂</div>
-      <h3 style="font-size: 1.2rem; color: #fecdd3; margin-bottom: 2px;">Happy Birthday!</h3>
-      <p style="font-size: 0.75rem; color: #f43f5e; margin-bottom: 12px;">seng 🕸️🌸</p>
-      <p style="font-size: 0.75rem; color: #ffe4e6; line-height: 1.4; margin-bottom: 18px;">
-        May your life always be filled with flowers, love, and endless happiness! 💕
-      </p>
-      <button class="btn" style="padding: 0.4rem 1.2rem; font-size: 0.75rem;" onclick="togglePopup(false)">Close ✕</button>
-    </div>
+    <button class="btn-main" style="width:100%; padding:12px; margin-bottom:30px;" onclick="alert('May your life always be filled with flowers, love, and endless happiness! 💕\n\nHappy Birthday seng! 🕸️🌸')">Click for Final Birthday Wishes ✨</button>
   </div>
 
   <script>
-    let currentPin = "";
-    const targetPin = "060903";
-    const jarNotes = [
-      "Your spirit in the face of challenges inspires me every single day. 🕸️",
-      "Your presence alone is enough to make any room feel warmer.",
-      "Thank you for being the most patient and caring person in my life."
-    ];
+    let inputPin = "";
+    const correctPin = "060903";
 
-    // ANIMASI LOADING BAR
-    window.addEventListener("DOMContentLoaded", () => {
-      const bar = document.getElementById("progressBar");
-      let width = 0;
-      const interval = setInterval(() => {
-        if (width >= 100) {
-          clearInterval(interval);
-          document.getElementById("loadingScreen").style.display = "none";
-          document.getElementById("giftScreen").classList.remove("hidden");
-        } else {
-          width += 20;
-          bar.style.width = width + "%";
-        }
-      }, 120);
-    });
+    // Loading Bar Animation
+    let w = 0;
+    const inv = setInterval(() => {
+      w += 25;
+      document.getElementById("fill").style.width = w + "%";
+      if (w >= 100) {
+        clearInterval(inv);
+        document.getElementById("loading").classList.add("hidden");
+        document.getElementById("gift").classList.remove("hidden");
+      }
+    }, 150);
 
-    function goToPin() {
-      document.getElementById("giftScreen").style.display = "none";
-      document.getElementById("pinScreen").classList.remove("hidden");
+    function showPin() {
+      document.getElementById("gift").classList.add("hidden");
+      document.getElementById("pin").classList.remove("hidden");
     }
 
     function updateDots() {
       for (let i = 1; i <= 6; i++) {
-        const dot = document.getElementById(`dot${i}`);
-        if (i <= currentPin.length) {
-          dot.classList.add("active");
-        } else {
-          dot.classList.remove("active");
-        }
+        const d = document.getElementById("d" + i);
+        if (i <= inputPin.length) d.classList.add("active");
+        else d.classList.remove("active");
       }
     }
 
-    function pressKey(num) {
-      if (currentPin.length < 6) {
-        currentPin += num;
+    function press(n) {
+      if (inputPin.length < 6) {
+        inputPin += n;
         updateDots();
-        if (currentPin === targetPin) {
+        if (inputPin === correctPin) {
           setTimeout(() => {
-            document.getElementById("pinScreen").style.display = "none";
-            document.getElementById("mainContent").classList.remove("hidden");
-          }, 300);
+            document.getElementById("pin").classList.add("hidden");
+            document.getElementById("content").classList.remove("hidden");
+          }, 200);
         }
       }
     }
 
-    function clearPin() { currentPin = ""; updateDots(); }
-    function backspace() { currentPin = currentPin.slice(0, -1); updateDots(); }
+    function resetPin() { inputPin = ""; updateDots(); }
+    function delPin() { inputPin = inputPin.slice(0, -1); updateDots(); }
 
-    function showMsg(msg) {
-      const el = document.getElementById("flowerMsg");
-      el.innerText = `"${msg}"`;
-      el.classList.remove("hidden");
-    }
-
-    function playMusic(src) {
-      const player = document.getElementById("audioPlayer");
-      player.src = src;
-      player.play();
+    function playSong(src) {
+      const p = document.getElementById("player");
+      p.src = src;
+      p.play();
     }
 
     function shakeJar() {
-      const rand = jarNotes[Math.floor(Math.random() * jarNotes.length)];
-      const el = document.getElementById("jarNote");
-      el.innerText = `"${rand}"`;
-      el.classList.remove("hidden");
-    }
-
-    function togglePopup(show) {
-      document.getElementById("popup").classList.toggle("hidden", !show);
+      const notes = [
+        "Your spirit in the face of challenges inspires me every single day. 🕸️",
+        "Your presence alone is enough to make any room feel warmer.",
+        "Thank you for being the most patient and caring person in my life."
+      ];
+      document.getElementById("jarText").innerText = '"' + notes[Math.floor(Math.random() * notes.length)] + '"';
     }
   </script>
 </body>
